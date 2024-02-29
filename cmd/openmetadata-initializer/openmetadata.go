@@ -56,7 +56,7 @@ func getTokenWithUserPass(cfg *config, token *jwtToken, client *http.Client) {
 		log.Fatalf("impossible to send request: %s", err)
 	}
 	if resp.StatusCode != http.StatusOK {
-		log.Fatalln("status code error: %d %s", resp.StatusCode, resp.Status)
+		log.Fatalf("status code error: %d %s", resp.StatusCode, resp.Status)
 	}
 	defer resp.Body.Close()
 	respBody, err := io.ReadAll(resp.Body)

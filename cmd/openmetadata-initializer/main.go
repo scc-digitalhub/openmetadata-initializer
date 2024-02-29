@@ -16,6 +16,8 @@ type config struct {
 	ChangeUserPassword bool   `mapstructure:"CHANGE_USER_PASSWORD"`
 	GenerateToken      bool   `mapstructure:"GENERATE_TOKEN"`
 	MaxRetry           int16  `mapstructure:"READINESS_MAX_RETRY"`
+	KubeConfigPath     string `mapstructure:"KUBE_CONFIG_PATH"`
+	Namespace          string `mapstructure:"NAMESPACE"`
 }
 
 type login struct {
@@ -76,4 +78,7 @@ func main() {
 	log.Println(id)
 	botToken := getBotTokenById(&config, &token, c, id)
 	log.Println(botToken)
+	kubeConfig := initK8sClient(&config)
+	secretClient := initK8sSecretClient(kubeConfig, config.Namespace)
+	createSecret(secretClient, botToken)
 }

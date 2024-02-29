@@ -16,6 +16,8 @@ func loadConfig() (cfg config, err error) {
 	pflag.BoolP("change_user_password", "c", true, "change username password")
 	pflag.BoolP("generate_token", "g", true, "generate token")
 	pflag.Int16P("readiness_max_retry", "m", 10, "openmetadata readiness probe max retry")
+	pflag.StringP("namespace", "n", "default", "namespace name where secret will be created")
+	pflag.StringP("kube_config_path", "k", "", "kubeconfig file path")
 
 	pflag.Parse()
 	viper.BindPFlags(pflag.CommandLine)
